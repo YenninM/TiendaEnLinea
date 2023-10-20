@@ -1,7 +1,23 @@
+import bcrypt from 'bcryptjs';
+
 const data = {
+  users: [
+    {
+      name: 'Saebe',
+      email: 'sonorasaebe@gmail.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: true,
+    },
+    {
+      name: 'Yennin',
+      email: 'yarethgracia@gmail.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: false,
+    },
+  ],
   products: [
     {
-      _id:'1',
+
       name: 'Excavadora',
       slug: 'excavadora-amarilla',
       category: 'Maquinaria',
@@ -14,7 +30,7 @@ const data = {
       description: 'Excavadora de color amarillo',
     },
     {
-      _id:'2',
+      
       name: 'Libros de historia',
       slug: 'libros-de-historia',
       category: 'Libros',
@@ -27,7 +43,7 @@ const data = {
       description: 'libro de historia del banco de mexico',
     },
     {
-      _id:'3',
+      
       name: "adorno",
       slug: "adorno",
       category: "decoracion",
@@ -40,7 +56,7 @@ const data = {
       description: "Lindo adorno de madera",
     },
     {
-      _id:'4',
+      
       name: "predio",
       slug: "predio",
       category: "terrenos",

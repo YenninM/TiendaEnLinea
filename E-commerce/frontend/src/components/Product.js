@@ -13,12 +13,12 @@ function Product(props){
     cart: { cartItems },
   } = state;
 
-  const addToCartHandler = async (item) => {
+   const addToCartHandler = async (item) => {
     const existItem = cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
-      window.alert('Sorry. Product is out of stock');
+      window.alert('Lo sentimos. Producto no disponible');
       return;
     }
     ctxDispatch({
@@ -27,9 +27,11 @@ function Product(props){
     });
   };
     return(
+      <div className="d-flex flex-wrap">
+      <div className="col-10 mb-2">
     <Card >
     <Link to={`/product/${product.slug}`}>
-      <img src={product.image} className="card-img-top" alt={product.name} />
+      <img src={product.image} className="card-img-top" alt={product.name} style={{height: 250}} />
     </Link>
     <Card.Body>
     <Link to={`/product/${product.slug}`}>
@@ -42,10 +44,12 @@ function Product(props){
             No Disponible
           </Button>
         ) : (
-          <Button onClick={() => addToCartHandler(product)}>Contactar</Button>
+          <Button className="custom-button" onClick={() => addToCartHandler(product)}>Contactar</Button>
         )}
     </Card.Body>
   </Card>
+  </div>
+  </div>
   );
 }
 export default Product;

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useContext, useEffect, useReducer, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useReducer } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
@@ -17,11 +17,11 @@ import { Store } from '../Store';
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "FETCH_REQUEST":
+    case 'FETCH_REQUEST':
       return { ...state, loading: true };
-    case "FETCH_SUCCESS":
+    case 'FETCH_SUCCESS':
       return { ...state, product: action.payload, loading: false };
-    case "FETCH_FAIL":
+    case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
@@ -35,11 +35,11 @@ function ProductScreen() {
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: [],
     loading: true,
-    error: "",
+    error: '',
   });
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: "FETCH_REQUEST" });
+      dispatch({ type: 'FETCH_REQUEST' });
       try {
         const result = await axios.get(`/api/products/slug/${slug}`);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
@@ -57,7 +57,7 @@ function ProductScreen() {
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${product._id}`);
     if (data.countInStock < quantity) {
-      window.alert('Lo sentimos. Product no disponible');
+      window.alert('Lo sentimos, Producto no disponible');
       return;
     }
     ctxDispatch({
@@ -127,7 +127,7 @@ function ProductScreen() {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button onClick={addToCartHandler} variant="primary">Contactar</Button>
+                      <Button onClick={addToCartHandler} className="custom-button">Contactar</Button>
                     </div>
                   </ListGroup.Item>
                 )}

@@ -29,7 +29,12 @@ export default function CartScreen() {
     });
   };
   const removeItemHandler = (item) => {
+    console.log('Se hizo clic en el botón de eliminar', item);
     ctxDispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      //prueba a ver si funciona       localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+    console.log('Estado del carrito después de la eliminación:', state.cart.cartItems);
   };
 
   const checkoutHandler = () => {
@@ -44,11 +49,11 @@ export default function CartScreen() {
       <h1>Productos</h1>
       <Row>
         <Col md={8}>
-          {cartItems.length === 0 ? (
-            <MessageBox>
-              Carrito vacío, agregue productos para Contactar. <Link to="/">Ver Productos</Link>
-            </MessageBox>
-          ) : (
+        {cartItems.length === 0 ? (
+  <MessageBox className="custom-message-box">
+    Carrito vacío, agregue productos para Contactar. <Link to="/">Ver Productos</Link>
+  </MessageBox>
+) : (
             <ListGroup>
               {cartItems.map((item) => (
                 <ListGroup.Item key={item._id}>
@@ -62,7 +67,7 @@ export default function CartScreen() {
                       <Link to={`/product/${item.slug}`}>{item.name}</Link>
                     </Col>
                     <Col md={3}>
-                      <Button
+                    <Button
                         onClick={() =>
                           updateCartHandler(item, item.quantity - 1)
                         }
@@ -112,7 +117,7 @@ export default function CartScreen() {
                   <div className="d-grid">
                     <Button
                       type="button"
-                      variant="primary"
+                      className="custom-button"
                       onClick={checkoutHandler}
                       disabled={cartItems.length === 0}
                     >
