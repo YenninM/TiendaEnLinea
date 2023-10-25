@@ -3,15 +3,23 @@ import { createContext, useReducer } from 'react';
 export const Store = createContext();
 
 const initialState = {
+  
   userInfo: localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null,
+
   cart: {
-    cartItems: [],
+    shippingAddress: localStorage.getItem('shippingAddress')
+      ? JSON.parse(localStorage.getItem('shippingAddress'))
+      : { location: {} },
+    paymentMethod: localStorage.getItem('paymentMethod')
+      ? localStorage.getItem('paymentMethod')
+      : '',
+    cartItems: localStorage.getItem('cartItems')
+      ? JSON.parse(localStorage.getItem('cartItems'))
+      : [],
   },
 };
-
-
 
 
 function reducer(state, action) {
@@ -47,7 +55,15 @@ function reducer(state, action) {
         cart: {
           cartItems: [],
           shippingAddress: {},
-          paymentMethod: '',
+          
+        },
+      };
+      case 'SAVE_SHIPPING_ADDRESS':
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          shippingAddress: action.payload,
         },
       };
 

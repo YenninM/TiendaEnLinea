@@ -63,14 +63,27 @@ function App() {
                   <Link to="/" className="nav-link">
                     INICIO
                   </Link>
-                  <Link to="/" className="nav-link">
-                    VENTAS
-                  </Link>
+                  <NavDropdown title="SAEBE" id="basic-nav-dropdown">
+                    <LinkContainer to="/saebelink1">
+                      <NavDropdown.Item>VENTAS</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/saebelink2">
+                      <NavDropdown.Item>Link 2</NavDropdown.Item>
+                    </LinkContainer>
+                  </NavDropdown>
+                  <NavDropdown title="TRANSPARENCIA" id="basic-nav-dropdown">
+                    <LinkContainer to="/saebelink1">
+                      <NavDropdown.Item>Link 1</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/saebelink2">
+                      <NavDropdown.Item>Link 2</NavDropdown.Item>
+                    </LinkContainer>
+                  </NavDropdown>
                   <Link to="/ayuda" className="nav-link">
                     AYUDA
                   </Link>
                   <Link to="/cart" className="nav-link">
-                    CONTACTAR
+                    ARTÍCULOS
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -108,6 +121,7 @@ function App() {
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
+              <Route path="/shipping" element={<ShippingAddressScreen />} />
               <Route path="/ayuda" element={<Ayuda />}/>
               <Route path="/" element={<HomeScreen />} />
             </Routes>
