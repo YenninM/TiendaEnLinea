@@ -15,7 +15,7 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "build": "cd backend && npm start  && cd ../frontend && npm install && npm start",
+    "build": "cd backend && npm start && cd ../frontend && npm install && npm start",
     "start": "node backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
