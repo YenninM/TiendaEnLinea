@@ -13,6 +13,8 @@ import { Store } from "./Store";
 import CartScreen from "./screens/CartScreen";
 import PreFooter from "./components/PreFooter";
 import SigninScreen from "./screens/SigninScreen";
+import SignupScreen from "./screens/SignupScreen";
+import OrderScreen from "./screens/OrderScreen";
 import logo from "./images/LogoSaebe.png";
 import transparencia from "./images/portaldetransparencia.png";
 import directorio from "./images/directorio.png";
@@ -22,7 +24,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import Ayuda from "./screens/Ayuda";
+import PaymentMethodScreen from "./screens/PaymentMethodScreen";
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import TopHeader from "./components/TopHeader";
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 //quite el <TopHeader />
 
@@ -59,7 +65,7 @@ function App() {
               </LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="ms-auto">
+              <Nav className="me-auto w-100 justify-content-end"> 
                   <Link to="/" className="nav-link">
                     INICIO
                   </Link>
@@ -75,9 +81,7 @@ function App() {
                     <LinkContainer to="/saebelink1">
                       <NavDropdown.Item>Link 1</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer to="/saebelink2">
-                      <NavDropdown.Item>Link 2</NavDropdown.Item>
-                    </LinkContainer>
+                    
                   </NavDropdown>
                   <Link to="/ayuda" className="nav-link">
                     AYUDA
@@ -95,7 +99,7 @@ function App() {
                       <LinkContainer to="/profile">
                         <NavDropdown.Item>PERFIL</NavDropdown.Item>
                       </LinkContainer>
-                      <LinkContainer to="/profile">
+                      <LinkContainer to="/orderhistory">
                         <NavDropdown.Item>HISTORIAL DE CONTACTO</NavDropdown.Item>
                       </LinkContainer>
                       <NavDropdown.Divider />
@@ -121,24 +125,37 @@ function App() {
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
+
+              <Route path="/signup" element={<SignupScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
               <Route path="/shipping" element={<ShippingAddressScreen />} />
               <Route path="/ayuda" element={<Ayuda />}/>
+              <Route path="/payment" element={<PaymentMethodScreen />}/>
+              <Route path="/placeorder" element={<PlaceOrderScreen />} />
+              <Route path="/order/:id" element={<OrderScreen />}/>
+              <Route
+                path="/orderhistory"
+                element={<OrderHistoryScreen />}
+              />
+              
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>
         </main>
-        <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center mt-3">
-  <a href="https://transparencia.sonora.gob.mx" className="btn my-2 mx-2" target="_blank" rel="noopener noreferrer">
-    <img src={transparencia} alt="Portal de Transparencia" />
-  </a>
-  <a href="https://www.sonora.gob.mx" className="btn my-2 mx-2" target="_blank" rel="noopener noreferrer">
-    <img src={directorio} alt="Directorio" />
-  </a>
-  <a href="https://www.sonora.gob.mx" className="btn my-2 mx-2" target="_blank" rel="noopener noreferrer">
-    <img src={ges} alt="Botón 2" />
-  </a>
-</div>
-
+      {/*
+      BOTONES DE PRIVACIDAD, PENDIENTES PARA VER SU ACTIVACIÓN 
+      <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center mt-3">
+        <a href="https://transparencia.sonora.gob.mx" className="btn my-2 mx-2" target="_blank" rel="noopener noreferrer">
+          <img src={transparencia} alt="Portal de Transparencia" />
+        </a>
+        <a href="https://www.sonora.gob.mx" className="btn my-2 mx-2" target="_blank" rel="noopener noreferrer">
+          <img src={directorio} alt="Directorio" />
+        </a>
+        <a href="https://www.sonora.gob.mx" className="btn my-2 mx-2" target="_blank" rel="noopener noreferrer">
+          <img src={ges} alt="Botón 2" />
+        </a>
+      </div>
+      */}   
         <PreFooter />
         
         <footer>

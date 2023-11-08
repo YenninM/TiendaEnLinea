@@ -3,7 +3,7 @@ import { createContext, useReducer } from 'react';
 export const Store = createContext();
 
 const initialState = {
-  
+  fullBox: false,
   userInfo: localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null,
@@ -20,10 +20,13 @@ const initialState = {
       : [],
   },
 };
-
-
 function reducer(state, action) {
   switch (action.type) {
+    case 'SET_FULLBOX_ON':
+      return { ...state, fullBox: true };
+    case 'SET_FULLBOX_OFF':
+      return { ...state, fullBox: false };
+
     case 'CART_ADD_ITEM':
       // add to cart
       const newItem = action.payload;
@@ -35,30 +38,31 @@ function reducer(state, action) {
             item._id === existItem._id ? newItem : item
           )
         : [...state.cart.cartItems, newItem];
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
       return { ...state, cart: { ...state.cart, cartItems } };
-
-      case 'CART_REMOVE_ITEM': {
-        const cartItems = state.cart.cartItems.filter(
-          (item) => item._id !== action.payload._id
-        );
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        return { ...state, cart: { ...state.cart, cartItems } };
-      }
+    case 'CART_REMOVE_ITEM': {
+      const cartItems = state.cart.cartItems.filter(
+        (item) => item._id !== action.payload._id
+      );
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      return { ...state, cart: { ...state.cart, cartItems } };
+    }
+    case 'CART_CLEAR':
+      return { ...state, cart: { ...state.cart, cartItems: [] } };
 
     case 'USER_SIGNIN':
       return { ...state, userInfo: action.payload };
-    
-      case 'USER_SIGNOUT':
+    case 'USER_SIGNOUT':
       return {
         ...state,
         userInfo: null,
         cart: {
           cartItems: [],
           shippingAddress: {},
-          
+          paymentMethod: '',
         },
       };
-      case 'SAVE_SHIPPING_ADDRESS':
+    case 'SAVE_SHIPPING_ADDRESS':
       return {
         ...state,
         cart: {
@@ -66,7 +70,23 @@ function reducer(state, action) {
           shippingAddress: action.payload,
         },
       };
+    case 'SAVE_SHIPPING_ADDRESS_MAP_LOCATION':
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          shippingAddress: {
+            ...state.cart.shippingAddress,
+            location: action.payload,
+          },
+        },
+      };
 
+    case 'SAVE_PAYMENT_METHOD':
+      return {
+        ...state,
+        cart: { ...state.cart, paymentMethod: action.payload },
+      };
     default:
       return state;
   }
