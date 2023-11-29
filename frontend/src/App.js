@@ -16,9 +16,9 @@ import SigninScreen from "./screens/SigninScreen";
 import SignupScreen from "./screens/SignupScreen";
 import OrderScreen from "./screens/OrderScreen";
 import logo from "./images/LogoSaebe.png";
-import transparencia from "./images/portaldetransparencia.png";
-import directorio from "./images/directorio.png";
-import ges from "./images/GES.png";
+//import transparencia from "./images/portaldetransparencia.png";
+//import directorio from "./images/directorio.png";
+//import ges from "./images/GES.png";
 import { FaTwitter, FaFacebook, FaInstagram, FaTiktok, FaYoutube} from "react-icons/fa";
 import {toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,7 +26,7 @@ import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import Ayuda from "./screens/Ayuda";
 import PaymentMethodScreen from "./screens/PaymentMethodScreen";
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
-import TopHeader from "./components/TopHeader";
+//import TopHeader from "./components/TopHeader";
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import Button from 'react-bootstrap/Button';
@@ -40,6 +40,8 @@ import AdminRoute from './components/AdminRoute';
 import ProductListScreen from './screens/ProductListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
+import UserListScreen from './screens/UserListScreen';
+import UserEditScreen from './screens/UserEditScreen';
 
 //quite el <TopHeader />
 
@@ -238,6 +240,14 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
+              <Route
+                path="/admin/users"
+                element={
+                  <AdminRoute>
+                    <UserListScreen />
+                  </AdminRoute>
+                }
+              ></Route>
                <Route
                 path="/admin/products"
                 element={
@@ -255,6 +265,15 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
+                <Route
+                path="/admin/user/:id"
+                element={
+                  <AdminRoute>
+                    <UserEditScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>
