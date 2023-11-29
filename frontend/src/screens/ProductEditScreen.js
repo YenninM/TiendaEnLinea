@@ -108,7 +108,7 @@ export default function ProductEditScreen() {
       dispatch({
         type: 'UPDATE_SUCCESS',
       });
-      toast.success('Producto Creado con Éxito');
+      toast.success('Producto Actualizado con Éxito');
       navigate('/admin/products');
     } catch (err) {
       toast.error(getError(err));

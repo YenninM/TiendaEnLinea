@@ -82,7 +82,7 @@ export default function UserEditScreen() {
       dispatch({
         type: 'UPDATE_SUCCESS',
       });
-      toast.success('User updated successfully');
+      toast.success('Usuario Actualizado Con Éxito');
       navigate('/admin/users');
     } catch (error) {
       toast.error(getError(error));
@@ -92,9 +92,9 @@ export default function UserEditScreen() {
   return (
     <Container className="small-container">
       <Helmet>
-        <title>Edit User ${userId}</title>
+        <title>Editar Usuario ${userId}</title>
       </Helmet>
-      <h1>Edit User {userId}</h1>
+      <h1>Editar Usuario {userId}</h1>
 
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -103,7 +103,7 @@ export default function UserEditScreen() {
       ) : (
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>Nombre</Form.Label>
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -111,7 +111,7 @@ export default function UserEditScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="email">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>Correo</Form.Label>
             <Form.Control
               value={email}
               type="email"
@@ -124,14 +124,14 @@ export default function UserEditScreen() {
             className="mb-3"
             type="checkbox"
             id="isAdmin"
-            label="isAdmin"
+            label="Es Admin"
             checked={isAdmin}
             onChange={(e) => setIsAdmin(e.target.checked)}
           />
 
           <div className="mb-3">
-            <Button disabled={loadingUpdate} type="submit">
-              Update
+            <Button className="custom-button" disabled={loadingUpdate} type="submit">
+              Actualizar
             </Button>
             {loadingUpdate && <LoadingBox></LoadingBox>}
           </div>
