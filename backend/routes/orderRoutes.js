@@ -6,6 +6,17 @@ import Product from '../models/productModel.js';
 import { isAuth, isAdmin } from '../utils.js';
 
 const orderRouter = express.Router();
+
+orderRouter.get(
+  '/',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find().populate('user', 'name');
+    res.send(orders);
+  })
+);
+
 orderRouter.post(
   '/',
   isAuth,
@@ -21,7 +32,7 @@ orderRouter.post(
     });
 
     const order = await newOrder.save();
-    res.status(201).send({ message: 'New Order Created', order });
+    res.status(201).send({ message: 'Nuevo Pedido Creado', order });
   })
 );
 
@@ -76,12 +87,7 @@ orderRouter.get(
     const orders = await Order.find({ user: req.user._id });
     res.send(orders);
   })
-);
-
-
-
-
-orderRouter.get(
+);orderRouter.get(
   '/:id',
   isAuth,
   expressAsyncHandler(async (req, res) => {
@@ -89,23 +95,39 @@ orderRouter.get(
     if (order) {
       res.send(order);
     } else {
-      res.status(404).send({ message: 'Order Not Found' });
+      res.status(404).send({ message: 'Pedido No Encontrado' });
     }
   })
 );
 
-
-
-
-{/*codigo de pruebas para paypal*/}
 orderRouter.put(
-  '/:id/pay',
+  '/:id/deliver',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {
+      var fechaHoraMST = new Date(Date.now() - (7 * 3600000));
+      order.isDelivered = true;
+      order.deliveredAt = fechaHoraMST;
+      await order.save();
+      res.send({ message: 'Pedido Entregado' });
+    } else {
+      res.status(404).send({ message: 'Pedido No Encontrado' });
+    }
+  })
+);
+orderRouter.put(
+  '/:id/pay',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id).populate(
+      'user',
+      'email name'
+    );
+    if (order) {
+      var fechaHoraMST = new Date(Date.now() - (7 * 3600000));
       order.isPaid = true;
-      order.paidAt = Date.now();
+      order.paidAt = fechaHoraMST;
       order.paymentResult = {
         id: req.body.id,
         status: req.body.status,
@@ -114,9 +136,43 @@ orderRouter.put(
       };
 
       const updatedOrder = await order.save();
-      res.send({ message: 'Order Paid', order: updatedOrder });
+      {/*mailgun()
+        .messages()
+        .send(
+          {
+            from: 'Sellfone <Saebe@gmail.com>',
+            to: `${order.user.name} <${order.user.email}>`,
+            subject: `Nuevo Pedido ${order._id}`,
+            html: payOrderEmailTemplate(order),
+          },
+          (error, body) => {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log(body);
+            }
+          }
+        );
+        */}
+
+      res.send({ message: 'Pedido Pagado', order: updatedOrder });
     } else {
-      res.status(404).send({ message: 'Order Not Found' });
+      res.status(404).send({ message: 'Pedido No Encontrado' });
+    }
+  })
+);
+
+orderRouter.delete(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      await order.deleteOne();
+      res.send({ message: 'Pedido Eliminado' });
+    } else {
+      res.status(404).send({ message: 'Pedido No Encontrado' });
     }
   })
 );

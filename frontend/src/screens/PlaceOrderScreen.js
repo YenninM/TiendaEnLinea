@@ -95,7 +95,12 @@ export default function PlaceOrderScreen() {
                 <strong>Nombre:</strong> {cart.shippingAddress.fullName} <br />
                 <strong>Dirección: </strong> {cart.shippingAddress.address},
                 {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
+                <br />
+                <strong>Mensaje: </strong>
                 {cart.shippingAddress.country}
+                <br />
+                <strong>Celular: </strong>
+                {cart.shippingAddress.cell}
               </Card.Text>
               <Link to="/shipping">Editar</Link>
             </Card.Body>

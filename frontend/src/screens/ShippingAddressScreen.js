@@ -14,11 +14,10 @@ export default function ShippingAddressScreen() {
     cart: { shippingAddress },
   } = state;
   const [fullName, setFullName] = useState(shippingAddress.fullName || '');
+  const [cell, setcell] = useState(shippingAddress.cell || '');
   const [address, setAddress] = useState(shippingAddress.address || '');
   const [city, setCity] = useState(shippingAddress.city || '');
-  const [postalCode, setPostalCode] = useState(
-    shippingAddress.postalCode || ''
-  );
+  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '');
   useEffect(() => {
     if (!userInfo) {
       navigate('/signin?redirect=/shipping');
@@ -31,6 +30,7 @@ export default function ShippingAddressScreen() {
       type: 'SAVE_SHIPPING_ADDRESS',
       payload: {
         fullName,
+        cell,
         address,
         city,
         postalCode,
@@ -41,6 +41,7 @@ export default function ShippingAddressScreen() {
       'shippingAddress',
       JSON.stringify({
         fullName,
+        cell,
         address,
         city,
         postalCode,
@@ -60,10 +61,16 @@ export default function ShippingAddressScreen() {
         <h1 className="my-3">CONTACTO</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="fullName">
-            <Form.Label>Nombre Completo</Form.Label>
+          <Form.Label>Nombre Completo</Form.Label>
             <Form.Control
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
+              required
+            />
+            <Form.Label>Celular</Form.Label>
+            <Form.Control
+              value={cell}
+              onChange={(e) => setcell(e.target.value)}
               required
             />
           </Form.Group>

@@ -64,7 +64,7 @@ productRouter.delete(
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
-      await product.remove();
+      await product.deleteOne();
       res.send({ message: 'Producto Eliminado' });
     } else {
       res.status(404).send({ message: 'Producto No Encontrado' });
