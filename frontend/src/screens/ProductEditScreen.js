@@ -140,7 +140,7 @@ export default function ProductEditScreen() {
       } else {
         setImage(data.secure_url);
       }
-      toast.success('Imagen Cargada con Éxito, Haga Click en Actualizar para Aplicarla');
+      toast.success('Imagen Cargada con Éxito, Haga Click en Listo para Aplicarla');
     } catch (err) {
       toast.error(getError(err));
       dispatch({ type: 'UPLOAD_FAIL', payload: getError(err) });
@@ -152,7 +152,7 @@ export default function ProductEditScreen() {
     console.log(images);
     console.log(images.filter((x) => x !== fileName));
     setImages(images.filter((x) => x !== fileName));
-    toast.success('Imagen eliminada exitosamente. Haga Click en Actualizar para Aplicarla');
+    toast.success('Imagen eliminada exitosamente. Haga Click en Listo para aplicar los cambios');
   };
 
   return (
@@ -172,14 +172,16 @@ export default function ProductEditScreen() {
             <Form.Label>Nombre</Form.Label>
             <Form.Control
               value={name}
+              placeholder='Escriba el nombre del producto'
               onChange={(e) => setName(e.target.value)}
               required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="slug">
-            <Form.Label>Nombre</Form.Label>
+            <Form.Label>Slug</Form.Label>
             <Form.Control
               value={slug}
+              placeholder='Escriba el nombre del producto sin espacios, separado por -'
               onChange={(e) => setSlug(e.target.value)}
               required
             />
@@ -187,28 +189,29 @@ export default function ProductEditScreen() {
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Precio</Form.Label>
             <Form.Control
+              placeholder='0'
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="image">
-            <Form.Label>Imagen</Form.Label>
+            {/*<Form.Label>Imagen</Form.Label>
             <Form.Control
               value={image}
               onChange={(e) => setImage(e.target.value)}
               required
-            />
+      />*/}
           </Form.Group>
            <Form.Group className="mb-3" controlId="imageFile">
-            <Form.Label>Subir Imagenes</Form.Label>
-            <Form.Control type="file" onChange={uploadFileHandler} />
+            <Form.Label>Cargar Imágen</Form.Label>
+            <Form.Control type="file" accept="image/*" onChange={uploadFileHandler} />
             {loadingUpload && <LoadingBox></LoadingBox>}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="additionalImage">
-            <Form.Label>Imagenes Adicionales</Form.Label>
-            {images.length === 0 && <MessageBox>No hay imagen adicional</MessageBox>}
+            <Form.Label>Imágenes Adicionales</Form.Label>
+            {images.length === 0 && <MessageBox>Sin imagenes adicional</MessageBox>}
             <ListGroup variant="flush">
               {images.map((x) => (
                 <ListGroup.Item key={x}>
@@ -221,7 +224,7 @@ export default function ProductEditScreen() {
             </ListGroup>
           </Form.Group>
           <Form.Group className="mb-3" controlId="additionalImageFile">
-            <Form.Label>Cargar Imagen</Form.Label>
+            <Form.Label>Cargar Imágenes Adicionales</Form.Label>
             <Form.Control
               type="file"
               onChange={(e) => uploadFileHandler(e, true)}
@@ -233,6 +236,7 @@ export default function ProductEditScreen() {
             <Form.Label>Categoría</Form.Label>
             <Form.Control
               value={category}
+              placeholder='Categoría'
               onChange={(e) => setCategory(e.target.value)}
               required
             />
@@ -241,6 +245,7 @@ export default function ProductEditScreen() {
             <Form.Label>Marca</Form.Label>
             <Form.Control
               value={brand}
+              placeholder='Marca'
               onChange={(e) => setBrand(e.target.value)}
               required
             />
@@ -248,6 +253,7 @@ export default function ProductEditScreen() {
           <Form.Group className="mb-3" controlId="countInStock">
             <Form.Label>Cantidad Disponible</Form.Label>
             <Form.Control
+              placeholder='Escriba la cantidad disponible'
               value={countInStock}
               onChange={(e) => setCountInStock(e.target.value)}
               required
@@ -256,9 +262,12 @@ export default function ProductEditScreen() {
           <Form.Group className="mb-3" controlId="description">
             <Form.Label>Descripción</Form.Label>
             <Form.Control
+              className="description-input"
               value={description}
+              placeholder='Escriba una descripción del producto'
               onChange={(e) => setDescription(e.target.value)}
-              required
+              as="textarea"
+              
             />
           </Form.Group>
           <div className="mb-3">

@@ -101,7 +101,7 @@ function ProductScreen() {
             </ListGroup.Item>
             <ListGroup.Item>Precio : ${product.price}</ListGroup.Item>
             <ListGroup.Item>
-              Descripcion:
+              Descripción:
               <p>{product.description}</p>
             </ListGroup.Item>
           </ListGroup>

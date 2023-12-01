@@ -95,3 +95,16 @@ main {
 button.thumbnail {
   padding: 0;
 }
+
+
+.description-input {
+  padding: 10px; /* Puedes ajustar el relleno según tus preferencias */
+  border: 2px solid #ccc; /* Puedes ajustar el grosor y color del borde según tus preferencias */
+  font-size: 16px; /* Puedes ajustar el tamaño de fuente según tus preferencias */
+  width: 100%; /* Ajusta el ancho del campo según tus preferencias */
+  white-space: pre-line; /* Permite saltos de línea */
+}
+
+::placeholder {
+  color: #b4b2b2; /* Color más claro que el texto normal */
+}
