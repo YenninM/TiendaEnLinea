@@ -267,7 +267,6 @@ export default function ProductEditScreen() {
               placeholder='Escriba una descripción del producto'
               onChange={(e) => setDescription(e.target.value)}
               as="textarea"
-              
             />
           </Form.Group>
           <div className="mb-3">

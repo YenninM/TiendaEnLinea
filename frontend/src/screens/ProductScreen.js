@@ -15,7 +15,6 @@ import { getError } from "../utils";
 import { Store } from '../Store';
 import { useState } from 'react';
 
-
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -30,10 +29,7 @@ const reducer = (state, action) => {
 };
 
 function ProductScreen() {
-
-
   const [selectedImage, setSelectedImage] = useState('');
-
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;

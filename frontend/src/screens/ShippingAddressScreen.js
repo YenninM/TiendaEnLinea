@@ -55,7 +55,6 @@ export default function ShippingAddressScreen() {
       <Helmet>
         <title>SAEBE</title>
       </Helmet>
-
       <CheckoutSteps step1 step2></CheckoutSteps>
       <div className="container small-container">
         <h1 className="my-3">CONTACTO</h1>

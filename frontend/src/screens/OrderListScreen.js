@@ -150,7 +150,5 @@ export default function OrderListScreen() {
         </table>
       )}
     </div>
-    
-
   );
 }
