@@ -26,6 +26,11 @@ export default function ShippingAddressScreen() {
   const [country, setCountry] = useState(shippingAddress.country || '');
   const submitHandler = (e) => {
     e.preventDefault();
+    // Validación del número de celular
+  if (cell.length !== 10) {
+    alert('El número de celular debe tener 10 dígitos');
+    return; // Detiene el proceso si la validación falla
+  }
     ctxDispatch({
       type: 'SAVE_SHIPPING_ADDRESS',
       payload: {

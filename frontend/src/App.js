@@ -23,7 +23,6 @@ import { FaTwitter, FaFacebook, FaInstagram, FaTiktok, FaYoutube} from "react-ic
 import {toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
-import Ayuda from "./screens/Ayuda";
 import PaymentMethodScreen from "./screens/PaymentMethodScreen";
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 //import TopHeader from "./components/TopHeader";
@@ -123,9 +122,6 @@ function App() {
                     </LinkContainer>
                     
                   </NavDropdown>
-                  <Link to="/ayuda" className="nav-link">
-                    AYUDA
-                  </Link>
                   <Link to="/cart" className="nav-link">
                     ARTÍCULOS
                     {cart.cartItems.length > 0 && (
@@ -210,7 +206,6 @@ function App() {
               <Route path="/signup" element={<SignupScreen />} />
               <Route path="/profile" element={<ProtectedRoute><ProfileScreen /></ProtectedRoute>}/>
               <Route path="/shipping" element={<ShippingAddressScreen />} />
-              <Route path="/ayuda" element={<Ayuda />}/>
               <Route path="/payment" element={<PaymentMethodScreen />}/>
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
               <Route path="/order/:id" element={<ProtectedRoute><OrderScreen /></ProtectedRoute>}></Route>
